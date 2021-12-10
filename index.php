@@ -1,8 +1,7 @@
 <?php
-    //echo 'ola';
-
+    
     //echo (time());
-
+    /*
     $name = "myCookie";
     $value = rand(0,1000);
     
@@ -13,3 +12,19 @@
     }
 
     echo "FIM";
+    */
+
+    if(!isset($_COOKIE['name'])){
+
+        //pedir o nome
+        
+        echo 
+            '<form method="POST" action= "index.php"> 
+                <input type="text" name="txtNome"><br>
+                <input type="submit" value="Guardar">           
+            </form>';
+
+        //guardar o nome numa cookie
+    } else {
+        //dar as boas vindas ao user da sessão anterior
+    }
