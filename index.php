@@ -1,43 +1,44 @@
 <?php
-    
-    //echo (time());
-    /*
-    $name = "myCookie";
-    $value = rand(0,1000);
-    
 
-    //SÓ VAI CRIAR O COOKIE SE ELE NÃO EXISTIR
-    if(!isset($_COOKIE[$name])){
-        setcookie($name,strval($value), time() + 5); //86400); = 1 dia , valor em segundos da duração dos cookies
+    $tema = 'lightMode.css';//tema por defeito
+    if (isset($_COOKIE['tema'])){
+        $tema = $_COOKIE['tema'];
     }
 
-    echo "FIM";
-    */
+    $dados = array(
+        'name' => 'Hugão',
+        'surname' => 'Resende',
+        'age' => 33
+    );
 
-    if(!isset($_COOKIE['nome'])){
+    setcookie('dados', json_encode( $dados,128), time() + 10000);
 
-        //pedir o nome
-        
-        if($_SERVER['REQUEST_METHOD'] != 'POST'){
-            //se não aconteceu a submissão do form
-            echo 
-                '<form method="POST" action= "index.php"> 
-                    <input type="text" name="txtNome"><br>
-                    <input type="submit" value="Guardar">           
-                </form>';
+    $dados = json_decode( $_COOKIE['dados'] , 128);
+    //setcookie('dados','',time()-1);
 
-        
-        } else {
-            //aconteceu a submissão
-            //buscar o nome
-            //criar o cookie
-            setcookie('nome',$_POST['txtNome'], time() + 25);
-        }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "./assets/css/<?php echo $tema ?>" >
+    <title>Cookies B</title>
+</head>
+<body>
+
+    <div>
+        <?php
+             echo '<pre>';
+             print_r ($dados);
+             echo "Olá Sr.". $dados['surname']." ".$dados['name']. " com os seus ".$dados['age']." anos de idade";
+        ?>
+    </div>
+
+    <h1>Olá Mundo</h1>
+    <a href="lightMode.php"> LIGHT MODE </a> | <a href="darkMode.php"> DARK MODE </a>
     
-    }else{
-        
-        //dar as boas vindas ao user da sessão anterior
-        echo "Seja bem vindo ".$_COOKIE['nome']. "!!!";
-    }      
-
-    echo "terminado";
+</body>
+</html>
